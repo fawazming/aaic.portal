@@ -60,7 +60,10 @@ $routes->post('/editlesson', 'Logic::pEditLesson');
 
 $routes->get('/reportsheet', 'Logic::reportsheet');
 $routes->get('/classreportsheet', 'Logic::classreportsheet');
-$routes->get('/ireportsheet', 'Logic::indivreportsheet');
+
+$routes->get('/newintake', 'Live::newintake');
+$routes->post('/newintake', 'Live::postNewintake');
+$routes->get('/ireportsheet', 'Live::indivreportsheet');
 
 $routes->get('/editscoresheet', 'Logic::editscoresheet');
 $routes->post('/updatescore', 'Logic::updatescore');
