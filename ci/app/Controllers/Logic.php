@@ -103,6 +103,9 @@ class Logic extends BaseController
             $subjects = explode(',', $this->session->subj);
             $term = $variables->where('name', 'term')->find()[0]['value'];
 
+            if (count($subjects) == 1) {
+                if($subjects[0] == ''){$subjects = explode(',', $variables->where('name', 'subjects')->find()[0]['value']);}
+            }
             echo view('clesson',
                 [
                 'classes' => $classes,
