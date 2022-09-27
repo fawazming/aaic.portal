@@ -26,6 +26,7 @@
                                                     <?php foreach ($classes as $class) : ?>
                                                     <option value="<?=$class?>"><?=$class?></option>
                                                     <?php endforeach; ?>
+                                                    <option value="left">Left</option>
                                                   </select>
                                             </div>
                                             </div>
