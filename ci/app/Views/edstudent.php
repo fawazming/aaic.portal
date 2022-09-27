@@ -10,17 +10,18 @@
                     </div>
                     <div class="card-body">
                         <div class="container">
-                            <form action="<?=base_url('student')?>" method="post">
+                            <form action="<?=base_url('editStudent')?>" method="post">
                                 <fieldset class="mb-3 row">
                                     <div class="col-sm-1-12">
                                         <div class="mb-3">
                                             <label for="inputName" class="col-sm-1-12 col-form-label">Admission Number & Class</label>
                                             <div class="row">
+                                                <input type="hidden" name="id" value="<?=$data['id']?>">
                                             <div class="col-sm-1-12 col-md-6">
-                                                <input type="tel" class="form-control" name="adm" placeholder="ADM Number" required>
+                                                <input type="tel" value="<?=$data['adm']?>" class="form-control" name="adm" placeholder="ADM Number" required>
                                             </div>
                                             <div class="col-sm-1-12 col-md-6">
-                                                  <select class="form-control" name="class">
+                                                  <select class="form-control" name="class" required>
                                                     <option value="">Select a Class</option>
                                                     <?php foreach ($classes as $class) : ?>
                                                     <option value="<?=$class?>"><?=$class?></option>
@@ -34,10 +35,10 @@
                                                 of Student</label>
                                             <div class="row">
                                                 <div class="col-sm-1-12 col-md-6">
-                                                    <input type="text" class="form-control" name="lname" placeholder="Lastname/Surname" required>
+                                                    <input type="text" value="<?=$data['lname']?>" class="form-control" name="lname" placeholder="Lastname/Surname" required>
                                                 </div>
                                                 <div class="col-sm-1-12 col-md-6">
-                                                    <input type="text" class="form-control" name="fname" placeholder="First Name" required>
+                                                    <input type="text" value="<?=$data['fname']?>" class="form-control" name="fname" placeholder="First Name" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -46,10 +47,10 @@
                                             </label>
                                             <div class="row">
                                                 <div class="col-sm-1-12 col-md-6">
-                                                    <input type="tel" class="form-control" name="phone" placeholder="+234" required>
+                                                    <input type="tel" value="<?=$data['phone']?>" class="form-control" name="phone" placeholder="+234" required>
                                                 </div>
                                                 <div class="col-sm-1-12 col-md-6">
-                                                    <input type="date" class="form-control" name="dob" required>
+                                                    <input type="date" value="<?=$data['dob']?>" class="form-control" name="dob" required>
                                                 </div>
                                             </div>
                                         </div>

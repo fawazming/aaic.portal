@@ -58,6 +58,97 @@ class Logic extends BaseController
         }
 	}
 
+
+    public function editStudent($adm)
+    {
+       if ($this->session->logged_in == TRUE) {
+            $students = new \App\Models\Students();
+            $variables = new \App\Models\Variables();
+            $all = $students->findAll();
+            $data = $students->where('adm', $adm)->find()[0];
+            $classes = explode(',', $variables->where('name', 'classes')->find()[0]['value']);
+
+            echo view('template/header');
+            echo view('template/navbar');
+            echo view('template/sidebar');
+            echo view('edstudent', ['data'=> $data, 'students' => $all, 'classes' => $classes]);
+            echo view('template/footer');
+            echo view('template/jsfooter');
+        } else{
+            return redirect()->to(base_url());
+        }
+    }
+
+
+    public function pEditStudent()
+    {
+       if ($this->session->logged_in == TRUE) {
+            $incoming = $this->request->getPost();
+            // var_dump($incoming);
+            $students = new \App\Models\Students();
+
+            $res = $students->update($incoming['id'], $incoming);
+            if ($res) {
+                $this->msg('Student Updated');
+            } else {
+                $this->msg('Student fail to Update');
+            }
+        } else{
+            return redirect()->to(base_url());
+        }
+    }
+
+
+    public function attendance($cls)
+    {
+       if ($this->session->logged_in == TRUE) {
+            $students = new \App\Models\Students();
+            $variables = new \App\Models\Variables();
+            $all = $students->where('class', 'JS'.$cls)->find();
+            $classes = explode(',', $variables->where('name', 'classes')->find()[0]['value']);
+
+            echo view('attendance', ['students' => $all, 'class' => 'JS'.$cls]);
+        } else{
+            return redirect()->to(base_url());
+        }
+    }
+
+    public function pAttendance()
+    {
+       if ($this->session->logged_in == TRUE) {
+            $incoming = $this->request->getPost();
+            $students = new \App\Models\Students();
+            $Attendance = new \App\Models\Attendance();
+            $variables = new \App\Models\Variables();
+            $all = $students->where('class', $incoming['class'])->find();
+
+            $data = [];
+            foreach ($all as $k => $stud) {
+                if(array_key_exists($stud['adm'], $incoming) ){
+                    $data[$k] = [$stud['adm'] => 1];
+                }else{
+                    $data[$k] = [$stud['adm'] => 0];
+                }
+            }
+            $data['note'] = $incoming['note'];
+            $data = json_encode($data);
+            $today = date('dmy');
+            $class = $incoming['class'];
+            $res = $Attendance->where('date', $today)->find();
+            if($res){
+                $Attendance->update($res['id'], [$class => $data]);
+                $this->msg('Attendance Updated');
+
+            }else{
+                $Attendance->insert(['date'=>$today, $class => $data]);
+                $this->msg('New attendance added');
+
+            }
+        } else{
+            return redirect()->to(base_url());
+        }
+    }
+
     public function lesson()
     {
        if ($this->session->logged_in == TRUE) {
@@ -426,7 +517,9 @@ class Logic extends BaseController
 
 	public function msg($note)
 	{
-		echo $note;
+        echo view('template/header');
+        echo view('msg', ['msg'=> $note]);
+        echo view('template/jsfooter');
 	}
 
 	// public function register()
@@ -556,7 +649,7 @@ class Logic extends BaseController
 		$r = $Variables->where('name','term')->first();
 
 		// create a private function to increment term in respect to session
-		// $res = $Variables->update($r['id'], ['value'=>($r['value']+1)]);
+		$res = $Variables->update($r['id'], ['value'=> $this->termIncrementer($r['value'])]);
 		$this->backupDB('broadsheet');
 		$this->backupDB('indiv_students');
 
@@ -568,6 +661,23 @@ class Logic extends BaseController
 		
 		echo('Done');
 	}
+
+    public function termIncrementer($cTerm)
+    {
+        switch ($cTerm) {
+                case '1':
+                    return 2;
+                    break;
+
+                case '2':
+                    return 3;
+                    break;
+
+                case '3':
+                    return 1;
+                    break;
+            }
+    }
 
 	public function postsetup()
 	{

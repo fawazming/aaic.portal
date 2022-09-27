@@ -35,6 +35,8 @@ $routes->get('/dashboard', 'Logic::dashboard');
 
 $routes->get('/students', 'Logic::students');
 $routes->post('/student', 'Logic::addstudent');
+$routes->get('/editstudent/(:any)', 'Logic::editStudent/$1');
+$routes->post('/editStudent', 'Logic::pEditStudent');
 
 // indivStudent
 $routes->get('/indivstudent', 'Logic::indivstudent');
@@ -43,6 +45,10 @@ $routes->post('/indivstudent', 'Logic::updIndivStudent');
 $routes->get('/broadsheet', 'Logic::broadsheet');
 
 $routes->get('/newterm', 'Logic::newTerm');
+
+$routes->get('/attendance/(:any)', 'Logic::attendance/$1');
+$routes->post('/attendance', 'Logic::pAttendance');
+
 
 $routes->get('/lesson', 'Logic::lesson');
 $routes->get('/clesson', 'Logic::clesson');

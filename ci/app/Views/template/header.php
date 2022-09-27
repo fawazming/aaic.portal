@@ -9,8 +9,8 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="Rayyan Technologies">
-    <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="<?=base_url('assets/images/favicon.png')?>" type="image/x-icon">
+    <link rel="shortcut icon" href="<?=base_url('assets/images/favicon.png')?>" type="image/x-icon">
     <title>AAIC Student - Teacher Portal</title>
     <!-- Google font-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -24,17 +24,16 @@
         href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
         rel="stylesheet">
     <!-- Themify icon-->
-    <link rel="stylesheet" type="text/css" href="assets/css/feather-icon.css">
+    <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/feather-icon.css')?>">
     <!-- Plugins css start-->
     <!-- Plugins css Ends-->
     <!-- Bootstrap css-->
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/bootstrap.css')?>">
     <!-- App css-->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.min.css">
-    <link id="color" rel="stylesheet" href="assets/css/color-1.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/style.min.css')?>">
+    <link id="color" rel="stylesheet" href="<?=base_url('assets/css/color-1.css')?>" media="screen">
     <!-- Responsive css-->
-    <link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.2.0/tinymce.min.js" integrity="sha512-tofxIFo8lTkPN/ggZgV89daDZkgh1DunsMYBq41usfs3HbxMRVHWFAjSi/MXrT+Vw5XElng9vAfMmOWdLg0YbA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/responsive.css')?>">
 </head>
 <body>
     <!-- Loader starts-->
