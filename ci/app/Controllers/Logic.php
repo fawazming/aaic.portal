@@ -378,19 +378,27 @@ class Logic extends BaseController
 		$schResume = $variables->where('name', 'schoolResume')->find()[0]['value'];
 		$schFees = $variables->where('name', 'schoolFees')->find()[0]['value'];
 
-			$stud = $Broadsheet->join('indiv_students', 'indiv_students.students_id = broadsheet.students_id')->where('broadsheet.class',$clss)->where('sessionterm',$st)->getCompiledSelect();
+			$stud = $Broadsheet->join('indiv_students', 'indiv_students.students_id = broadsheet.students_id')->where('broadsheet.class',$clss)->where('indiv_students.class',$clss)->where('broadsheet.sessionterm',$st)->where('indiv_students.session',$s)->where('indiv_students.term',$t)->getCompiledSelect();
 
-            $db = \Config\Database::connect();
-            $stud = $db->query("
-                SELECT *
-                FROM `broadsheet`
-                JOIN `indiv_students` ON `indiv_students`.`students_id` = `broadsheet`.`students_id`
-                AND `indiv_students`.`session` = '".$s."'
-                WHERE `broadsheet`.`class` = '".$clss."'
-                AND `sessionterm` = '".$st."'"
-                )->getResultArray();
+            // $db = \Config\Database::connect();
+            // $stud = $db->query("
+            //     SELECT *
+            //     FROM `broadsheet`
+            //     JOIN `indiv_students` ON `indiv_students`.`students_id` = `broadsheet`.`students_id`
+            //     AND `indiv_students`.`session` = '".$s."'
+            //     WHERE `broadsheet`.`class` = '".$clss."'
+            //     AND `sessionterm` = '".$st."'"
+            //     )->getResultArray();
 
-            dd($stud);
+            // $stud = $db->query("
+            //     SELECT *
+            //     FROM `indiv_students`
+            //     JOIN `broadsheet` ON `broadsheet`.`students_id` = `indiv_students`.`students_id`
+            //     WHERE `indiv_students`.`class` = '".$clss."'
+            //     AND `session` = '".$s."'"
+            //     )->getResultArray();
+
+            // dd($stud);
 
 		$data = [
 			'studs'=>$stud,
