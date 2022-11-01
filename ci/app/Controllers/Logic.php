@@ -634,15 +634,18 @@ class Logic extends BaseController
         foreach ($studs as $k => $std) {
             if($std['class'] == 'Leaver'){
                 $nn = '';
-            }else{
-            $stds[$k] = [
-                'students_id' => $std['adm'],
-                'name' => $std['lname'].' '.$std['fname'],
-                'class' => $std['class'],
-                'sessionterm' => $st,
-            ];
-            $Broadsheet->insertBatch($stds);
+           }else{
+                $stds[$k] = [
+                    'students_id' => $std['adm'],
+                    'name' => $std['lname'].' '.$std['fname'],
+                    'class' => $std['class'],
+                    'sessionterm' => $st,
+                ];
+            }
         }
+
+        if(count($stds)){
+            $Broadsheet->insertBatch($stds);
         }
         return $stds;
     }
