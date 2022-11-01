@@ -703,10 +703,10 @@ class Logic extends BaseController
 
 
         // create a private function to increment term in respect to session
-        $rs = $this->termIncr();
+        //$rs = $this->termIncr();
 
-        $this->backupDB('broadsheet');
-        $this->backupDB('indiv_students');
+        //$this->backupDB('broadsheet');
+        //$this->backupDB('indiv_students');
 
         // $db = \Config\Database::connect();
         // $query = $db->query('TRUNCATE TABLE broadsheet');
