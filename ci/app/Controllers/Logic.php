@@ -378,7 +378,19 @@ class Logic extends BaseController
 		$schResume = $variables->where('name', 'schoolResume')->find()[0]['value'];
 		$schFees = $variables->where('name', 'schoolFees')->find()[0]['value'];
 
-			$stud = $Broadsheet->join('indiv_students', 'indiv_students.students_id = broadsheet.students_id')->where('broadsheet.class',$clss)->where('sessionterm',$st)->find();
+			$stud = $Broadsheet->join('indiv_students', 'indiv_students.students_id = broadsheet.students_id')->where('broadsheet.class',$clss)->where('sessionterm',$st)->getCompiledSelect();
+
+            $db = \Config\Database::connect();
+            $stud = $db->query("
+                SELECT *
+                FROM `broadsheet`
+                JOIN `indiv_students` ON `indiv_students`.`students_id` = `broadsheet`.`students_id`
+                AND `indiv_students`.`session` = '".$s."'
+                WHERE `broadsheet`.`class` = '".$clss."'
+                AND `sessionterm` = '".$st."'"
+                )->getResultArray();
+
+            dd($stud);
 
 		$data = [
 			'studs'=>$stud,
