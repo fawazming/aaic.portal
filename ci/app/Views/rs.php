@@ -16,7 +16,7 @@
 
 <body class="A4">
     <?php foreach($studs as $stud): ?>
-    <div class="container sheet padding-10mm">
+    <div class="container sheet padding-5mm">
         <header>
             <img class="logo" src="assets/rs/img/AAIS_Logo_full.png" alt="">
             <p class="title">Report for First Term 2022/2023 Session</p>
