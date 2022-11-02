@@ -45,6 +45,7 @@ $routes->post('/indivstudent', 'Logic::updIndivStudent');
 $routes->get('/broadsheet', 'Logic::broadsheet');
 
 $routes->get('/newterm', 'Logic::newTerm');
+$routes->get('/letter', 'Logic::newsletter');
 
 $routes->get('/attendance/(:any)', 'Logic::attendance/$1');
 $routes->post('/attendance', 'Logic::pAttendance');

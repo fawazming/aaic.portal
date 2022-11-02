@@ -409,6 +409,24 @@ class Logic extends BaseController
 		echo view('rs', $data);
 	}
 
+
+    public function newsletter()
+    {
+        $variables = new \App\Models\Variables();
+        $students = new \App\Models\Students();
+
+        $t = $variables->where('name','term')->first()['value'];
+        $s = $variables->where('name','session')->first()['value'];
+        $st = $s.$t;
+
+        $stud = $students->findAll();
+
+        $data = [
+            'studs'=>$stud,
+        ];
+        echo view('letter', $data);
+    }
+
     public function indivreportsheet()
     {
         $adm = $this->request->getGet('adm');
