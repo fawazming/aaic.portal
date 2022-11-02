@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Load paper.css for happy printing -->
-    <link rel="stylesheet" href="assets/rs/css/paper.css">
+    <!-- <link rel="stylesheet" href="assets/rs/css/paper.css"> -->
     <link rel="stylesheet" href="assets/rs/css/style.css">
     <style>
         .flex{
@@ -17,19 +17,22 @@
 
     <!-- Set page size here: A5, A4, A4 landscape, letter, legal or A3 -->
     <!-- Set also "landscape" if you need -->
-    <style>@page { size: A4 }</style>
+    <!-- <style>@page { size: A6 }</style> -->
     <title>AAIS Newsletter</title>
 </head>
 
-<body class="A4">
-    <div class="container sheet flex">
+<body class="">
         <!-- <header>
             <img class="logo" src="assets/rs/img/AAIS_Logo_full.png" alt="">
             <p class="title">Report for First Term 2022/2023 Session</p>
 
         </header> -->
+    <div class="container sheet flex">
+
         <?php foreach($studs as $stud): ?>
+
             <main style="margin-left: 20px;">
+
                 <img width="300px" src="assets/rs/img/AAIS_Logo_full.png" alt="">
                 <h2 class="text-center">Mid Term Newsletter</h2>
                 <p>As Salamu Alaykum Warahmotullah, <br>Dear Parent, <i><b>(Mr & Mrs <?=$stud['lname']?>)</b></i> <br> We are using this medium to inform you that <br>there will be mid term break tomorrow, <br> Thursday and Friday. <br> To track your child's progress, visit <br> <i><b>www.aaic.sgm.ng</b></i> and sign in with the<br> following details: <br><br>
