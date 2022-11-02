@@ -64,7 +64,7 @@
                                                     <input type="tel" class="form-control" name="present" id="present" placeholder="Number of times present" >
                                                 </div>
                                                 <div class="col-sm-1-12 col-md-6">
-                                                    <input type="tel" class="form-control" name="absent" id="absent" placeholder="Number of times absent" disabled>
+                                                    <input type="tel" class="form-control" name="absent" id="absent" placeholder="Number of times absent">
                                                 </div>
                                             </div>
                                         </div>
@@ -132,7 +132,7 @@
             balance.disabled = true;
             balance.value = 0;
     })
-    npaid.addEventListener('click',()=>{
-            balance.disabled = false;
-    })
+    // npaid.addEventListener('click',()=>{
+    //         balance.disabled = false;
+    // })
 </script>

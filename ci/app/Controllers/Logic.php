@@ -30,12 +30,31 @@ class Logic extends BaseController
 
 	public function dashboard()
 	{
-		echo view('template/header');
-		echo view('template/navbar');
-		echo view('template/sidebar');
-		echo view('dashboard');
-		echo view('template/footer');
-		echo view('template/jsfooter');
+        if ($this->session->logged_in == TRUE) {
+
+            if($this->session->level == 99){
+                $variables = new \App\Models\Variables();
+                $allVars = $variables->findAll();
+
+
+
+                echo view('template/header');
+                echo view('template/navbar');
+                echo view('template/sidebar');
+                echo view('dashboard99', ['allvars'=>$allVars]);
+                echo view('template/footer');
+                echo view('template/jsfooter');
+            }else{
+                echo view('template/header');
+                echo view('template/navbar');
+                echo view('template/sidebar');
+                echo view('dashboard');
+                echo view('template/footer');
+                echo view('template/jsfooter');
+            }
+        }else{
+            $this->login();
+        }
 	}
 
 	public function students()
@@ -393,36 +412,63 @@ class Logic extends BaseController
     public function indivreportsheet()
     {
         $adm = $this->request->getGet('adm');
+        $phone = $this->request->getGet('phone');
         $variables = new \App\Models\Variables();
         $Broadsheet = new \App\Models\Broadsheet();
         $students = new \App\Models\Students();
         $Indiv = new \App\Models\Indiv();
-        $res = $students->where('adm',$adm)->find();
+        $res = $students->where('adm', $adm)->where('phone',$phone)->find();
+        $rp = $variables->where('name','ReportSheet')->first()['value'];
 
         if($res){
-            $clss = $res[0]['class'];
-            $t = $variables->where('name','term')->first()['value'];
-            $s = $variables->where('name','session')->first()['value'];
-            $st = $s.$t;
+            $adm = $res[0]['adm'];
+            if($rp == 0){
+                $clss = $res[0]['class'];
+                $t = $variables->where('name','term')->first()['value'];
+                $s = $variables->where('name','session')->first()['value'];
+                $st = $s.$t;
 
-            $classes = explode(',', $variables->where('name', 'classes')->find()[0]['value']);
-            $noInClass = $variables->where('name', 'nic_'.$clss)->find()[0]['value'];
-            $schOpened = $variables->where('name', 'schoolOpened')->find()[0]['value'];
-            $schResume = $variables->where('name', 'schoolResume')->find()[0]['value'];
-            $schFees = $variables->where('name', 'schoolFees')->find()[0]['value'];
+                $classes = explode(',', $variables->where('name', 'classes')->find()[0]['value']);
+                $noInClass = $variables->where('name', 'nic_'.$clss)->find()[0]['value'];
+                $schOpened = $variables->where('name', 'schoolOpened')->find()[0]['value'];
+                $schResume = $variables->where('name', 'schoolResume')->find()[0]['value'];
+                $schFees = $variables->where('name', 'schoolFees')->find()[0]['value'];
 
-                $stud = $Broadsheet->join('indiv_students', 'indiv_students.students_id = broadsheet.students_id')->where('broadsheet.students_id',$adm)->where('indiv_students.students_id',$adm)->where('broadsheet.sessionterm',$st)->where('indiv_students.session',$s)->where('indiv_students.term',$t)->find();
+                $stud = $Broadsheet->where('students_id', $adm)->where('sessionterm',$st)->find();
 
-            $data = [
-                'studs'=>$stud,
-                'vars'=>['nic'=>$noInClass,'schOpened'=>$schOpened,'schResume'=>$schResume,'schFees'=>$schFees]
-            ];
+                $data = [
+                    'studs'=>$stud,
+                    'vars'=>['nic'=>$noInClass,'schOpened'=>$schOpened,'schResume'=>$schResume,'schFees'=>$schFees]
+                ];
 
 
-            echo view('logics');
-            echo view('rs', $data);
+                echo view('logics');
+                echo view('rsmin', $data);
+            }else{
+                $clss = $res[0]['class'];
+                $t = $variables->where('name','term')->first()['value'];
+                $s = $variables->where('name','session')->first()['value'];
+                $st = $s.$t;
+
+                $classes = explode(',', $variables->where('name', 'classes')->find()[0]['value']);
+                $noInClass = $variables->where('name', 'nic_'.$clss)->find()[0]['value'];
+                $schOpened = $variables->where('name', 'schoolOpened')->find()[0]['value'];
+                $schResume = $variables->where('name', 'schoolResume')->find()[0]['value'];
+                $schFees = $variables->where('name', 'schoolFees')->find()[0]['value'];
+
+                    $stud = $Broadsheet->join('indiv_students', 'indiv_students.students_id = broadsheet.students_id')->where('broadsheet.students_id',$adm)->where('indiv_students.students_id',$adm)->where('broadsheet.sessionterm',$st)->where('indiv_students.session',$s)->where('indiv_students.term',$t)->find();
+
+                $data = [
+                    'studs'=>$stud,
+                    'vars'=>['nic'=>$noInClass,'schOpened'=>$schOpened,'schResume'=>$schResume,'schFees'=>$schFees]
+                ];
+
+
+                echo view('logics');
+                echo view('rs', $data);
+            }
         }else{
-            echo('Invalid Admission Number');
+            $this->msg('Incorrect Details Supplied');
         }
     }
 
